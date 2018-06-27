@@ -1,7 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
+using MessagePack;
+using Microsoft.AspNetCore.Internal;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.SignalR.Protocol;
 using Microsoft.Extensions.Configuration;
-using ServiceStack.Redis;
+using StackExchange.Redis;
 
 namespace ConsoleClient
 {
@@ -17,23 +23,77 @@ namespace ConsoleClient
 
             Console.WriteLine("Hello. Type anything and press enter.");
 
-            while (true)
+            using (ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(configuration["ConnectionStrings:Redis"]))
             {
-                Console.Write("Message: ");
+                ISubscriber sub = redis.GetSubscriber();
 
-                var message = Console.ReadLine()?.Trim();
-
-                if (string.IsNullOrEmpty(message))
+                while (true)
                 {
-                    break;
-                }
+                    Console.Write("Message: ");
 
-                var redisManager = new RedisManagerPool(configuration["ConnectionStrings:Redis"]);
-                using (var client = redisManager.GetClient())
-                {
-                    client.PublishMessage("SignalRCore.Hubs.ChatHub:all", "{\"type\":1,\"target\":\"ReceiveMessage\",\"arguments\":[{\"user\":\"FromConsole\",\"message\":\"Message\"}]");
+                    var message = Console.ReadLine()?.Trim();
+
+                    if (string.IsNullOrEmpty(message))
+                    {
+                        break;
+                    }
+
+                    var messageObject = GetMessage("ReceiveMessage", new[] { new { user = "Console", message }}, new List<string>());
+
+                    sub.Publish("SignalRCore.Hubs.ChatHub:all", messageObject);
                 }
             }
+        }
+
+        private static byte[] GetMessage(string methodName, object[] args, IReadOnlyList<string> excludedConnectionIds)
+        {
+            // Written as a MessagePack 'arr' containing at least these items:
+            // * A MessagePack 'arr' of 'str's representing the excluded ids
+            // * [The output of WriteSerializedHubMessage, which is an 'arr']
+            // Any additional items are discarded.
+
+            var writer = MemoryBufferWriter.Get();
+
+            try
+            {
+                MessagePackBinary.WriteArrayHeader(writer, 2);
+                if (excludedConnectionIds != null && excludedConnectionIds.Count > 0)
+                {
+                    MessagePackBinary.WriteArrayHeader(writer, excludedConnectionIds.Count);
+                    foreach (var id in excludedConnectionIds)
+                    {
+                        MessagePackBinary.WriteString(writer, id);
+                    }
+                }
+                else
+                {
+                    MessagePackBinary.WriteArrayHeader(writer, 0);
+                }
+
+                WriteSerializedHubMessage(writer,
+                    new SerializedHubMessage(new InvocationMessage(methodName, args)));
+
+                return writer.ToArray();
+            }
+            finally
+            {
+                MemoryBufferWriter.Return(writer);
+            }
+        }
+
+        private static void WriteSerializedHubMessage(Stream stream, SerializedHubMessage message)
+        {
+            // Written as a MessagePack 'map' where the keys are the name of the protocol (as a MessagePack 'str')
+            // and the values are the serialized blob (as a MessagePack 'bin').
+
+            var protocol = new JsonHubProtocol();
+
+            MessagePackBinary.WriteMapHeader(stream, 1);
+            MessagePackBinary.WriteString(stream, protocol.Name);
+
+            var serialized = message.GetSerializedMessage(protocol);
+            MemoryMarshal.TryGetArray(serialized, out var array);
+            MessagePackBinary.WriteBytes(stream, array.Array, array.Offset, array.Count);
         }
     }
 }
