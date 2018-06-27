@@ -4,7 +4,6 @@
 using System;
 using System.Buffers;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -27,10 +26,10 @@ namespace Microsoft.AspNetCore.Internal
         private byte[] _currentSegment;
         private int _position;
 
-        public MemoryBufferWriter(int minimumSegmentSize = 4096)
-        {
-            _minimumSegmentSize = minimumSegmentSize;
-        }
+                public MemoryBufferWriter(int minimumSegmentSize = 4096)
+                {
+                    _minimumSegmentSize = minimumSegmentSize;
+                }
 
         public override long Length => _bytesWritten;
         public override bool CanRead => false;
@@ -116,33 +115,7 @@ namespace Microsoft.AspNetCore.Internal
 
             return _currentSegment.AsSpan(_position, _currentSegment.Length - _position);
         }
-
-        public void CopyTo(IBufferWriter<byte> destination)
-        {
-            if (_completedSegments != null)
-            {
-                // Copy completed segments
-                var count = _completedSegments.Count;
-                for (var i = 0; i < count; i++)
-                {
-                    destination.Write(_completedSegments[i].Span);
-                }
-            }
-
-            destination.Write(_currentSegment.AsSpan(0, _position));
-        }
-
-        public override Task CopyToAsync(Stream destination, int bufferSize, CancellationToken cancellationToken)
-        {
-            if (_completedSegments == null)
-            {
-                // There is only one segment so write without awaiting.
-                return destination.WriteAsync(_currentSegment, 0, _position);
-            }
-
-            return CopyToSlowAsync(destination);
-        }
-
+        
         private void EnsureCapacity(int sizeHint)
         {
             // This does the Right Thing. It only subtracts _position from the current segment length if it's non-null.
@@ -181,22 +154,6 @@ namespace Microsoft.AspNetCore.Internal
             _position = 0;
         }
 
-        private async Task CopyToSlowAsync(Stream destination)
-        {
-            if (_completedSegments != null)
-            {
-                // Copy full segments
-                var count = _completedSegments.Count;
-                for (var i = 0; i < count; i++)
-                {
-                    var segment = _completedSegments[i];
-                    await destination.WriteAsync(segment.Buffer, 0, segment.Length);
-                }
-            }
-
-            await destination.WriteAsync(_currentSegment, 0, _position);
-        }
-
         public byte[] ToArray()
         {
             if (_currentSegment == null)
@@ -226,56 +183,11 @@ namespace Microsoft.AspNetCore.Internal
             return result;
         }
 
-        public void CopyTo(Span<byte> span)
-        {
-            Debug.Assert(span.Length >= _bytesWritten);
-
-            if (_currentSegment == null)
-            {
-                return;
-            }
-
-            var totalWritten = 0;
-
-            if (_completedSegments != null)
-            {
-                // Copy full segments
-                var count = _completedSegments.Count;
-                for (var i = 0; i < count; i++)
-                {
-                    var segment = _completedSegments[i];
-                    segment.Span.CopyTo(span.Slice(totalWritten));
-                    totalWritten += segment.Span.Length;
-                }
-            }
-
-            // Copy current incomplete segment
-            _currentSegment.AsSpan(0, _position).CopyTo(span.Slice(totalWritten));
-
-            Debug.Assert(_bytesWritten == totalWritten + _position);
-        }
-
         public override void Flush() { }
         public override Task FlushAsync(CancellationToken cancellationToken) => Task.CompletedTask;
         public override int Read(byte[] buffer, int offset, int count) => throw new NotSupportedException();
         public override long Seek(long offset, SeekOrigin origin) => throw new NotSupportedException();
         public override void SetLength(long value) => throw new NotSupportedException();
-
-        public override void WriteByte(byte value)
-        {
-            if (_currentSegment != null && (uint)_position < (uint)_currentSegment.Length)
-            {
-                _currentSegment[_position] = value;
-            }
-            else
-            {
-                AddSegment();
-                _currentSegment[0] = value;
-            }
-
-            _position++;
-            _bytesWritten++;
-        }
 
         public override void Write(byte[] buffer, int offset, int count)
         {
@@ -290,29 +202,6 @@ namespace Microsoft.AspNetCore.Internal
             else
             {
                 BuffersExtensions.Write(this, buffer.AsSpan(offset, count));
-            }
-        }
-
-#if NETCOREAPP2_2
-        public override void Write(ReadOnlySpan<byte> span)
-        {
-            if (_currentSegment != null && span.TryCopyTo(_currentSegment.AsSpan(_position)))
-            {
-                _position += span.Length;
-                _bytesWritten += span.Length;
-            }
-            else
-            {
-                BuffersExtensions.Write(this, span);
-            }
-        }
-#endif
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                Reset();
             }
         }
 

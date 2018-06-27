@@ -25,20 +25,6 @@ namespace Microsoft.AspNetCore.SignalR
         /// <summary>
         /// Initializes a new instance of the <see cref="SerializedHubMessage"/> class.
         /// </summary>
-        /// <param name="messages">A collection of already serialized messages to cache.</param>
-        public SerializedHubMessage(IReadOnlyList<SerializedMessage> messages)
-        {
-            // A lock isn't needed here because nobody has access to this type until the constructor finishes.
-            for (var i = 0; i < messages.Count; i++)
-            {
-                var message = messages[i];
-                SetCache(message.ProtocolName, message.Serialized);
-            }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SerializedHubMessage"/> class.
-        /// </summary>
         /// <param name="message">The hub message for the cache. This will be serialized with an <see cref="IHubProtocol"/> in <see cref="GetSerializedMessage"/> to get the message's serialized representation.</param>
         public SerializedHubMessage(HubMessage message)
         {
@@ -67,34 +53,6 @@ namespace Microsoft.AspNetCore.SignalR
                 }
 
                 return serialized;
-            }
-        }
-
-        // Used for unit testing.
-        internal IReadOnlyList<SerializedMessage> GetAllSerializations()
-        {
-            // Even if this is only used in tests, let's do it right.
-            lock (_lock)
-            {
-                if (_cachedItem1.ProtocolName == null)
-                {
-                    return Array.Empty<SerializedMessage>();
-                }
-
-                var list = new List<SerializedMessage>(2);
-                list.Add(_cachedItem1);
-
-                if (_cachedItem2.ProtocolName != null)
-                {
-                    list.Add(_cachedItem2);
-
-                    if (_cachedItems != null)
-                    {
-                        list.AddRange(_cachedItems);
-                    }
-                }
-
-                return list;
             }
         }
 

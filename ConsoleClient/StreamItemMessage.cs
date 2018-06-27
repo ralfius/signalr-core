@@ -11,10 +11,5 @@ namespace Microsoft.AspNetCore.SignalR.Protocol
         {
             Item = item;
         }
-
-        public override string ToString()
-        {
-            return $"StreamItem {{ {nameof(InvocationId)}: \"{InvocationId}\", {nameof(Item)}: {Item ?? "<<null>>"} }}";
-        }
     }
 }

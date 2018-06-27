@@ -51,34 +51,8 @@ namespace Microsoft.AspNetCore.SignalR.Protocol
         /// <param name="target">The target method name.</param>
         /// <param name="arguments">The target method arguments.</param>
         public InvocationMessage(string target, object[] arguments)
-            : this(null, target, arguments)
+            : base(null, target, arguments)
         {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InvocationMessage"/> class.
-        /// </summary>
-        /// <param name="invocationId">The invocation ID.</param>
-        /// <param name="target">The target method name.</param>
-        /// <param name="arguments">The target method arguments.</param>
-        public InvocationMessage(string invocationId, string target, object[] arguments)
-            : base(invocationId, target, arguments)
-        {
-        }
-
-        /// <inheritdoc />
-        public override string ToString()
-        {
-            string args;
-            try
-            {
-                args = string.Join(", ", Arguments?.Select(a => a?.ToString()));
-            }
-            catch (Exception ex)
-            {
-                args = $"Error: {ex.Message}";
-            }
-            return $"InvocationMessage {{ {nameof(InvocationId)}: \"{InvocationId}\", {nameof(Target)}: \"{Target}\", {nameof(Arguments)}: [ {args} ] }}";
         }
     }
 
@@ -100,21 +74,6 @@ namespace Microsoft.AspNetCore.SignalR.Protocol
             {
                 throw new ArgumentNullException(nameof(invocationId));
             }
-        }
-
-        /// <inheritdoc />
-        public override string ToString()
-        {
-            string args;
-            try
-            {
-                args = string.Join(", ", Arguments?.Select(a => a?.ToString()));
-            }
-            catch (Exception ex)
-            {
-                args = $"Error: {ex.Message}";
-            }
-            return $"StreamInvocation {{ {nameof(InvocationId)}: \"{InvocationId}\", {nameof(Target)}: \"{Target}\", {nameof(Arguments)}: [ {args} ] }}";
         }
     }
 }
