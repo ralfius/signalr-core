@@ -9,20 +9,6 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleClient", "..\ConsoleClient\ConsoleClient.csproj", "{745FDE98-B23C-49DC-907F-9E1826601A6F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.AspNetCore.SignalR.Redis", "..\..\aspnet-signalr\src\Microsoft.AspNetCore.SignalR.Redis\Microsoft.AspNetCore.SignalR.Redis.csproj", "{5C09152C-9751-4A7D-B81E-16EBC065B547}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.AspNetCore.SignalR.Core", "..\..\aspnet-signalr\src\Microsoft.AspNetCore.SignalR.Core\Microsoft.AspNetCore.SignalR.Core.csproj", "{16418E98-905C-45C9-8DF9-C8D22CA48F87}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.AspNetCore.SignalR.Common", "..\..\aspnet-signalr\src\Microsoft.AspNetCore.SignalR.Common\Microsoft.AspNetCore.SignalR.Common.csproj", "{51032FDA-B7BB-4C9C-B328-578A6350D9DF}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.AspNetCore.SignalR", "..\..\aspnet-signalr\src\Microsoft.AspNetCore.SignalR\Microsoft.AspNetCore.SignalR.csproj", "{FAB1D9D2-158C-4D62-95C1-4DE09C51FFDE}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.AspNetCore.Http.Connections", "..\..\aspnet-signalr\src\Microsoft.AspNetCore.Http.Connections\Microsoft.AspNetCore.Http.Connections.csproj", "{CD964AD9-8438-4C31-BF07-78F10396999E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.AspNetCore.Http.Connections.Common", "..\..\aspnet-signalr\src\Microsoft.AspNetCore.Http.Connections.Common\Microsoft.AspNetCore.Http.Connections.Common.csproj", "{B8A0D76F-AC5C-4484-A928-371BDB097713}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.AspNetCore.SignalR.Protocols.Json", "..\..\aspnet-signalr\src\Microsoft.AspNetCore.SignalR.Protocols.Json\Microsoft.AspNetCore.SignalR.Protocols.Json.csproj", "{8E6A940F-BD5E-4230-AB5B-6DF56DD0BA20}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,34 +27,6 @@ Global
 		{745FDE98-B23C-49DC-907F-9E1826601A6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{745FDE98-B23C-49DC-907F-9E1826601A6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{745FDE98-B23C-49DC-907F-9E1826601A6F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5C09152C-9751-4A7D-B81E-16EBC065B547}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5C09152C-9751-4A7D-B81E-16EBC065B547}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5C09152C-9751-4A7D-B81E-16EBC065B547}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5C09152C-9751-4A7D-B81E-16EBC065B547}.Release|Any CPU.Build.0 = Release|Any CPU
-		{16418E98-905C-45C9-8DF9-C8D22CA48F87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{16418E98-905C-45C9-8DF9-C8D22CA48F87}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{16418E98-905C-45C9-8DF9-C8D22CA48F87}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{16418E98-905C-45C9-8DF9-C8D22CA48F87}.Release|Any CPU.Build.0 = Release|Any CPU
-		{51032FDA-B7BB-4C9C-B328-578A6350D9DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{51032FDA-B7BB-4C9C-B328-578A6350D9DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{51032FDA-B7BB-4C9C-B328-578A6350D9DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{51032FDA-B7BB-4C9C-B328-578A6350D9DF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FAB1D9D2-158C-4D62-95C1-4DE09C51FFDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FAB1D9D2-158C-4D62-95C1-4DE09C51FFDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FAB1D9D2-158C-4D62-95C1-4DE09C51FFDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FAB1D9D2-158C-4D62-95C1-4DE09C51FFDE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CD964AD9-8438-4C31-BF07-78F10396999E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CD964AD9-8438-4C31-BF07-78F10396999E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CD964AD9-8438-4C31-BF07-78F10396999E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CD964AD9-8438-4C31-BF07-78F10396999E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B8A0D76F-AC5C-4484-A928-371BDB097713}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B8A0D76F-AC5C-4484-A928-371BDB097713}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B8A0D76F-AC5C-4484-A928-371BDB097713}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B8A0D76F-AC5C-4484-A928-371BDB097713}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8E6A940F-BD5E-4230-AB5B-6DF56DD0BA20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8E6A940F-BD5E-4230-AB5B-6DF56DD0BA20}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8E6A940F-BD5E-4230-AB5B-6DF56DD0BA20}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8E6A940F-BD5E-4230-AB5B-6DF56DD0BA20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
