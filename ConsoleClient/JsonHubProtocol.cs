@@ -6,7 +6,6 @@ using System.Buffers;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.ExceptionServices;
-using Microsoft.AspNetCore.Connections;
 using Microsoft.AspNetCore.Internal;
 using Microsoft.AspNetCore.SignalR.Internal;
 using Microsoft.Extensions.Options;
@@ -59,9 +58,6 @@ namespace Microsoft.AspNetCore.SignalR.Protocol
 
         /// <inheritdoc />
         public int Version => ProtocolVersion;
-
-        /// <inheritdoc />
-        public TransferFormat TransferFormat => TransferFormat.Text;
 
         /// <inheritdoc />
         public bool IsVersionSupported(int version)

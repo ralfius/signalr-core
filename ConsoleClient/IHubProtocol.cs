@@ -3,7 +3,6 @@
 
 using System;
 using System.Buffers;
-using Microsoft.AspNetCore.Connections;
 
 namespace Microsoft.AspNetCore.SignalR.Protocol
 {
@@ -21,11 +20,6 @@ namespace Microsoft.AspNetCore.SignalR.Protocol
         /// Gets the version of the protocol.
         /// </summary>
         int Version { get; }
-
-        /// <summary>
-        /// Gets the transfer format of the protocol.
-        /// </summary>
-        TransferFormat TransferFormat { get; }
 
         /// <summary>
         /// Creates a new <see cref="HubMessage"/> from the specified serialized representation, and using the specified binder.
