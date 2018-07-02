@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using System;
-using System.Linq;
 
 namespace Microsoft.AspNetCore.SignalR.Protocol
 {
@@ -53,27 +52,6 @@ namespace Microsoft.AspNetCore.SignalR.Protocol
         public InvocationMessage(string target, object[] arguments)
             : base(null, target, arguments)
         {
-        }
-    }
-
-    /// <summary>
-    /// A hub message representing a streaming invocation.
-    /// </summary>
-    public class StreamInvocationMessage : HubMethodInvocationMessage
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="StreamInvocationMessage"/> class.
-        /// </summary>
-        /// <param name="invocationId">The invocation ID.</param>
-        /// <param name="target">The target method name.</param>
-        /// <param name="arguments">The target method arguments.</param>
-        public StreamInvocationMessage(string invocationId, string target, object[] arguments)
-            : base(invocationId, target, arguments)
-        {
-            if (string.IsNullOrEmpty(invocationId))
-            {
-                throw new ArgumentNullException(nameof(invocationId));
-            }
         }
     }
 }

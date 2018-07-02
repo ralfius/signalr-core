@@ -15,11 +15,8 @@ namespace Microsoft.AspNetCore.SignalR.Protocol
     /// </summary>
     public class JsonHubProtocol : IHubProtocol
     {
-        private const string ResultPropertyName = "result";
-        private const string ItemPropertyName = "item";
         private const string InvocationIdPropertyName = "invocationId";
         private const string TypePropertyName = "type";
-        private const string ErrorPropertyName = "error";
         private const string TargetPropertyName = "target";
         private const string ArgumentsPropertyName = "arguments";
         private const string HeadersPropertyName = "headers";
@@ -72,33 +69,6 @@ namespace Microsoft.AspNetCore.SignalR.Protocol
                             WriteHeaders(writer, m);
                             WriteInvocationMessage(m, writer);
                             break;
-                        case StreamInvocationMessage m:
-                            WriteMessageType(writer, HubProtocolConstants.StreamInvocationMessageType);
-                            WriteHeaders(writer, m);
-                            WriteStreamInvocationMessage(m, writer);
-                            break;
-                        case StreamItemMessage m:
-                            WriteMessageType(writer, HubProtocolConstants.StreamItemMessageType);
-                            WriteHeaders(writer, m);
-                            WriteStreamItemMessage(m, writer);
-                            break;
-                        case CompletionMessage m:
-                            WriteMessageType(writer, HubProtocolConstants.CompletionMessageType);
-                            WriteHeaders(writer, m);
-                            WriteCompletionMessage(m, writer);
-                            break;
-                        case CancelInvocationMessage m:
-                            WriteMessageType(writer, HubProtocolConstants.CancelInvocationMessageType);
-                            WriteHeaders(writer, m);
-                            WriteCancelInvocationMessage(m, writer);
-                            break;
-                        case PingMessage _:
-                            WriteMessageType(writer, HubProtocolConstants.PingMessageType);
-                            break;
-                        case CloseMessage m:
-                            WriteMessageType(writer, HubProtocolConstants.CloseMessageType);
-                            WriteCloseMessage(m, writer);
-                            break;
                         default:
                             throw new InvalidOperationException($"Unsupported message type: {message.GetType().FullName}");
                     }
@@ -127,33 +97,6 @@ namespace Microsoft.AspNetCore.SignalR.Protocol
             }
         }
 
-        private void WriteCompletionMessage(CompletionMessage message, JsonTextWriter writer)
-        {
-            WriteInvocationId(message, writer);
-            if (!string.IsNullOrEmpty(message.Error))
-            {
-                writer.WritePropertyName(ErrorPropertyName);
-                writer.WriteValue(message.Error);
-            }
-            else if (message.HasResult)
-            {
-                writer.WritePropertyName(ResultPropertyName);
-                PayloadSerializer.Serialize(writer, message.Result);
-            }
-        }
-
-        private void WriteCancelInvocationMessage(CancelInvocationMessage message, JsonTextWriter writer)
-        {
-            WriteInvocationId(message, writer);
-        }
-
-        private void WriteStreamItemMessage(StreamItemMessage message, JsonTextWriter writer)
-        {
-            WriteInvocationId(message, writer);
-            writer.WritePropertyName(ItemPropertyName);
-            PayloadSerializer.Serialize(writer, message.Item);
-        }
-
         private void WriteInvocationMessage(InvocationMessage message, JsonTextWriter writer)
         {
             WriteInvocationId(message, writer);
@@ -161,24 +104,6 @@ namespace Microsoft.AspNetCore.SignalR.Protocol
             writer.WriteValue(message.Target);
 
             WriteArguments(message.Arguments, writer);
-        }
-
-        private void WriteStreamInvocationMessage(StreamInvocationMessage message, JsonTextWriter writer)
-        {
-            WriteInvocationId(message, writer);
-            writer.WritePropertyName(TargetPropertyName);
-            writer.WriteValue(message.Target);
-
-            WriteArguments(message.Arguments, writer);
-        }
-
-        private void WriteCloseMessage(CloseMessage message, JsonTextWriter writer)
-        {
-            if (message.Error != null)
-            {
-                writer.WritePropertyName(ErrorPropertyName);
-                writer.WriteValue(message.Error);
-            }
         }
 
         private void WriteArguments(object[] arguments, JsonTextWriter writer)
