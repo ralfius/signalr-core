@@ -29,6 +29,11 @@ namespace Microsoft.AspNetCore.Internal
 
         public override Encoding Encoding => _utf8NoBom;
 
+        public Utf8BufferTextWriter()
+        {
+            _encoder = _utf8NoBom.GetEncoder();
+        }
+
         public static Utf8BufferTextWriter Get(IBufferWriter<byte> bufferWriter)
         {
             var writer = _cachedInstance;
