@@ -40,6 +40,10 @@ namespace ConsoleClient
                     var messageObject = GetMessage("ReceiveMessage", new[] { new { user = "Console", message }});
 
                     sub.Publish("SignalRCore.Hubs.ChatHub:all", messageObject);
+                    sub.SubscribeAsync("SignalRCore.Hubs.ChatHub:all", (channel, value) =>
+                    {
+                        Console.WriteLine("Received something!");
+                    });
                 }
             }
         }
