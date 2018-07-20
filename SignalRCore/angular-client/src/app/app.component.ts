@@ -4,7 +4,7 @@ import { HubConnection, HubConnectionBuilder, LogLevel } from '@aspnet/signalr';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
   title = 'app';
@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
   }
 
   private initHub() {
-    const url = 'http://localhost:54173/chathub';
+    const url = 'http://localhost:50136/chathub';
 
     this._hubConnection = new HubConnectionBuilder()
       .withUrl(`${url}`)
@@ -28,8 +28,7 @@ export class AppComponent implements OnInit {
     this._hubConnection.start().catch(err => console.error(err.toString()));
 
     this._hubConnection.on('ReceiveMessage', (message: string) => {
-      console.log('ReceiveMessage received');
-      console.log(message);
+      this.messages.push(message);
     });
   }
 

@@ -6,7 +6,7 @@ module.exports = {
     custom: './src/chat.js'
   },
   output: {
-    path: path.resolve(__dirname, '../wwwroot/dist'),
+    path: path.resolve(__dirname, './dist'),
     filename: '[name].bundle.js'
   },
   module: {
