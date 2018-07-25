@@ -7,6 +7,28 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRCore", "SignalRCore\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleClient", "ConsoleClient\ConsoleClient.csproj", "{9181DB30-4DB7-4BE1-A30B-A1B3F70CD839}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.AspNetCore.Http.Connections", "aspnet-signalr\src\Microsoft.AspNetCore.Http.Connections\Microsoft.AspNetCore.Http.Connections.csproj", "{0E94C092-07A0-4A1E-85FC-6457BF30F9A9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.AspNetCore.Http.Connections.Client", "aspnet-signalr\src\Microsoft.AspNetCore.Http.Connections.Client\Microsoft.AspNetCore.Http.Connections.Client.csproj", "{7C718107-CDD2-434F-B3EC-93178F1CDCAE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.AspNetCore.Http.Connections.Common", "aspnet-signalr\src\Microsoft.AspNetCore.Http.Connections.Common\Microsoft.AspNetCore.Http.Connections.Common.csproj", "{4F87EC5D-CDDF-49F8-BAB3-272F46C99981}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.AspNetCore.SignalR", "aspnet-signalr\src\Microsoft.AspNetCore.SignalR\Microsoft.AspNetCore.SignalR.csproj", "{17EF4DED-9446-4517-8CE2-18B7217E0828}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.AspNetCore.SignalR.Client", "aspnet-signalr\src\Microsoft.AspNetCore.SignalR.Client\Microsoft.AspNetCore.SignalR.Client.csproj", "{B41707A9-758F-49E1-AF0F-E4B113323C54}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.AspNetCore.SignalR.Client.Core", "aspnet-signalr\src\Microsoft.AspNetCore.SignalR.Client.Core\Microsoft.AspNetCore.SignalR.Client.Core.csproj", "{322B8836-FC59-4CB4-8DB4-752A1389548E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.AspNetCore.SignalR.Common", "aspnet-signalr\src\Microsoft.AspNetCore.SignalR.Common\Microsoft.AspNetCore.SignalR.Common.csproj", "{0428B87B-AF65-49C6-9CC6-9A865C501A17}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.AspNetCore.SignalR.Core", "aspnet-signalr\src\Microsoft.AspNetCore.SignalR.Core\Microsoft.AspNetCore.SignalR.Core.csproj", "{BE9FB82C-06C6-433C-9371-0B074C9BDD0E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.AspNetCore.SignalR.Protocols.Json", "aspnet-signalr\src\Microsoft.AspNetCore.SignalR.Protocols.Json\Microsoft.AspNetCore.SignalR.Protocols.Json.csproj", "{10EC2837-963F-4431-AD7D-57D572E0513C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.AspNetCore.SignalR.Protocols.MessagePack", "aspnet-signalr\src\Microsoft.AspNetCore.SignalR.Protocols.MessagePack\Microsoft.AspNetCore.SignalR.Protocols.MessagePack.csproj", "{19BFB16E-6770-47AC-A4E6-D85B3130A90F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.AspNetCore.SignalR.Redis", "aspnet-signalr\src\Microsoft.AspNetCore.SignalR.Redis\Microsoft.AspNetCore.SignalR.Redis.csproj", "{761F9C93-E7C8-4549-B9AF-275B01FB193E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +43,50 @@ Global
 		{9181DB30-4DB7-4BE1-A30B-A1B3F70CD839}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9181DB30-4DB7-4BE1-A30B-A1B3F70CD839}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9181DB30-4DB7-4BE1-A30B-A1B3F70CD839}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E94C092-07A0-4A1E-85FC-6457BF30F9A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E94C092-07A0-4A1E-85FC-6457BF30F9A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E94C092-07A0-4A1E-85FC-6457BF30F9A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E94C092-07A0-4A1E-85FC-6457BF30F9A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C718107-CDD2-434F-B3EC-93178F1CDCAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C718107-CDD2-434F-B3EC-93178F1CDCAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C718107-CDD2-434F-B3EC-93178F1CDCAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C718107-CDD2-434F-B3EC-93178F1CDCAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F87EC5D-CDDF-49F8-BAB3-272F46C99981}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F87EC5D-CDDF-49F8-BAB3-272F46C99981}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F87EC5D-CDDF-49F8-BAB3-272F46C99981}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F87EC5D-CDDF-49F8-BAB3-272F46C99981}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17EF4DED-9446-4517-8CE2-18B7217E0828}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17EF4DED-9446-4517-8CE2-18B7217E0828}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17EF4DED-9446-4517-8CE2-18B7217E0828}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17EF4DED-9446-4517-8CE2-18B7217E0828}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B41707A9-758F-49E1-AF0F-E4B113323C54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B41707A9-758F-49E1-AF0F-E4B113323C54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B41707A9-758F-49E1-AF0F-E4B113323C54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B41707A9-758F-49E1-AF0F-E4B113323C54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{322B8836-FC59-4CB4-8DB4-752A1389548E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{322B8836-FC59-4CB4-8DB4-752A1389548E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{322B8836-FC59-4CB4-8DB4-752A1389548E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{322B8836-FC59-4CB4-8DB4-752A1389548E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0428B87B-AF65-49C6-9CC6-9A865C501A17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0428B87B-AF65-49C6-9CC6-9A865C501A17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0428B87B-AF65-49C6-9CC6-9A865C501A17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0428B87B-AF65-49C6-9CC6-9A865C501A17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE9FB82C-06C6-433C-9371-0B074C9BDD0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE9FB82C-06C6-433C-9371-0B074C9BDD0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE9FB82C-06C6-433C-9371-0B074C9BDD0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE9FB82C-06C6-433C-9371-0B074C9BDD0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10EC2837-963F-4431-AD7D-57D572E0513C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10EC2837-963F-4431-AD7D-57D572E0513C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10EC2837-963F-4431-AD7D-57D572E0513C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10EC2837-963F-4431-AD7D-57D572E0513C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19BFB16E-6770-47AC-A4E6-D85B3130A90F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19BFB16E-6770-47AC-A4E6-D85B3130A90F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19BFB16E-6770-47AC-A4E6-D85B3130A90F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19BFB16E-6770-47AC-A4E6-D85B3130A90F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{761F9C93-E7C8-4549-B9AF-275B01FB193E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{761F9C93-E7C8-4549-B9AF-275B01FB193E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{761F9C93-E7C8-4549-B9AF-275B01FB193E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{761F9C93-E7C8-4549-B9AF-275B01FB193E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

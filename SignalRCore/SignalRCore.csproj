@@ -27,11 +27,22 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Redis" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\aspnet-signalr\src\Microsoft.AspNetCore.Http.Connections.Client\Microsoft.AspNetCore.Http.Connections.Client.csproj" />
+    <ProjectReference Include="..\aspnet-signalr\src\Microsoft.AspNetCore.Http.Connections.Common\Microsoft.AspNetCore.Http.Connections.Common.csproj" />
+    <ProjectReference Include="..\aspnet-signalr\src\Microsoft.AspNetCore.Http.Connections\Microsoft.AspNetCore.Http.Connections.csproj" />
+    <ProjectReference Include="..\aspnet-signalr\src\Microsoft.AspNetCore.SignalR.Client.Core\Microsoft.AspNetCore.SignalR.Client.Core.csproj" />
+    <ProjectReference Include="..\aspnet-signalr\src\Microsoft.AspNetCore.SignalR.Client\Microsoft.AspNetCore.SignalR.Client.csproj" />
+    <ProjectReference Include="..\aspnet-signalr\src\Microsoft.AspNetCore.SignalR.Common\Microsoft.AspNetCore.SignalR.Common.csproj" />
+    <ProjectReference Include="..\aspnet-signalr\src\Microsoft.AspNetCore.SignalR.Core\Microsoft.AspNetCore.SignalR.Core.csproj" />
+    <ProjectReference Include="..\aspnet-signalr\src\Microsoft.AspNetCore.SignalR.Protocols.Json\Microsoft.AspNetCore.SignalR.Protocols.Json.csproj" />
+    <ProjectReference Include="..\aspnet-signalr\src\Microsoft.AspNetCore.SignalR.Protocols.MessagePack\Microsoft.AspNetCore.SignalR.Protocols.MessagePack.csproj" />
+    <ProjectReference Include="..\aspnet-signalr\src\Microsoft.AspNetCore.SignalR.Redis\Microsoft.AspNetCore.SignalR.Redis.csproj" />
+    <ProjectReference Include="..\aspnet-signalr\src\Microsoft.AspNetCore.SignalR\Microsoft.AspNetCore.SignalR.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="appsettings.json">
