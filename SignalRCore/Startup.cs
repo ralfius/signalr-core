@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SignalRCore.HostedServices;
 using SignalRCore.Hubs;
 
 namespace SignalRCore
@@ -31,7 +32,8 @@ namespace SignalRCore
                 );
             });
             services.AddMvc();
-            services.AddSignalR().AddRedis(Configuration["ConnectionStrings:Redis"]);
+            services.AddSignalR();
+            services.AddHostedService<NotificationsHandlingHostedService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

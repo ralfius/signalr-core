@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Internal;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.SignalR.Protocol;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using StackExchange.Redis;
 
 namespace ConsoleClient
@@ -42,9 +43,13 @@ namespace ConsoleClient
                         break;
                     }
 
-                    var messageObject = GetMessage("ReceiveMessage", new[] { new { user = "Console", message }});
+                    // SignalR Redis contract is used here
+                    //var messageObject = GetMessage("ReceiveMessage", new[] { new { user = "Console", message }});
+                    //sub.Publish("SignalRCore.Hubs.ChatHub:all", messageObject);
 
-                    sub.Publish("SignalRCore.Hubs.ChatHub:all", messageObject);
+                    // custom contract is used here
+                    var redisMessage = (RedisValue)JsonConvert.SerializeObject(new { user = "Console", message = "Hello from the darkness" });
+                    sub.Publish("SignalRCore.Hubs.ChatHub:all", redisMessage);
                 }
             }
         }
