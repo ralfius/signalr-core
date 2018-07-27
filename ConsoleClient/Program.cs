@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.SignalR.Protocol;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using StackExchange.Redis;
+using ServiceStack.Redis;
 
 namespace ConsoleClient
 {
@@ -23,15 +23,8 @@ namespace ConsoleClient
 
             Console.WriteLine("Hello. Type anything and press enter.");
 
-            using (ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(configuration["ConnectionStrings:Redis"]))
+            using (var redisClient = new RedisClient(configuration["ConnectionStrings:Redis"]))
             {
-                ISubscriber sub = redis.GetSubscriber();
-
-                sub.SubscribeAsync("SignalRCore.Hubs.ChatHub:all", (channel, value) =>
-                {
-                    Console.WriteLine("Received something!");
-                });
-
                 while (true)
                 {
                     Console.Write("Message: ");
@@ -48,8 +41,7 @@ namespace ConsoleClient
                     //sub.Publish("SignalRCore.Hubs.ChatHub:all", messageObject);
 
                     // custom contract is used here
-                    var redisMessage = (RedisValue)JsonConvert.SerializeObject(new { user = "Console", message = "Hello from the darkness" });
-                    sub.Publish("SignalRCore.Hubs.ChatHub:all", redisMessage);
+                    redisClient.PublishMessage("SignalRCore.Hubs.ChatHub:all", JsonConvert.SerializeObject(new { user = "Console", message }));
                 }
             }
         }
