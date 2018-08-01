@@ -2,7 +2,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using SignalRCore.Hubs;
+using SignalRCore.Models;
 
 namespace SignalRCore
 {
@@ -50,9 +53,12 @@ namespace SignalRCore
 
 
             app.UseStaticFiles();
+
             app.UseSignalR(routes =>
             {
                 routes.MapHub<ChatHub>("/chathub");
+                routes.MapHub<InstantHub>("/instanthub");
+                routes.MapHub<ProcessingHub>("/processinghub");
             });
 
             app.UseMvc();

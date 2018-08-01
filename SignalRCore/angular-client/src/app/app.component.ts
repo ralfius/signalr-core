@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HubConnection, HubConnectionBuilder, LogLevel } from '@aspnet/signalr';
+import { InstantMessage } from './entities';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,7 @@ export class AppComponent implements OnInit {
   }
 
   private initHub() {
-    const url = 'http://localhost:50136/chathub';
+    const url = 'http://localhost:50136/instantmessageshub';
 
     this._hubConnection = new HubConnectionBuilder()
       .withUrl(`${url}`)
@@ -27,14 +28,8 @@ export class AppComponent implements OnInit {
 
     this._hubConnection.start().catch(err => console.error(err.toString()));
 
-    this._hubConnection.on('ReceiveMessage', (message: string) => {
-      this.messages.push(message);
+    this._hubConnection.on('ReceiveMessage', (message: InstantMessage) => {
+      this.messages.push(JSON.stringify(message));
     });
-  }
-
-  public sendMessage(): void {
-    this._hubConnection
-      .invoke('SendMessage', { user: this.user, message: this.message })
-      .catch(err => console.error(err));
   }
 }

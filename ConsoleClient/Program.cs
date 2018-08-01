@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Internal;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.SignalR.Protocol;
 using Microsoft.Extensions.Configuration;
+using SignalRCore.Models;
 using StackExchange.Redis;
 
 namespace ConsoleClient
@@ -26,11 +27,6 @@ namespace ConsoleClient
             {
                 ISubscriber sub = redis.GetSubscriber();
 
-                sub.SubscribeAsync("SignalRCore.Hubs.ChatHub:all", (channel, value) =>
-                {
-                    Console.WriteLine("Received something!");
-                });
-
                 while (true)
                 {
                     Console.Write("Message: ");
@@ -42,9 +38,33 @@ namespace ConsoleClient
                         break;
                     }
 
-                    var messageObject = GetMessage("ReceiveMessage", new[] { new { user = "Console", message }});
+                    if(message == "instant")
+                    {
+                        var messageObject = GetMessage("ReceiveMessage", new[] { new InstantMessage { LarName = "Instant Testing Lar name", LarId = 53443, ActionType = MessageActionType.CopyPaste, ItemId = 543234,
+                            MessageType = MessageType.Warnings, DateTime = DateTime.UtcNow } });
 
-                    sub.Publish("SignalRCore.Hubs.ChatHub:all", messageObject);
+                        sub.SubscribeAsync("SignalRCore.Hubs.InstantHub:all", (channel, value) =>
+                        {
+                            Console.WriteLine("Received something!");
+                            Console.WriteLine(value);
+                        });
+
+                        sub.Publish("SignalRCore.Hubs.InstantHub:all", messageObject);
+                    } else
+                    {
+                        var messageObject = GetMessage("ReceiveMessage", new[] { new ProcessState { LarName = "Processing Testing Lar name", LarId = 53443, AccountId = Guid.NewGuid(),
+                            Percentage = 55, ProcessId = Guid.NewGuid(), ProcessType = NotificationSource.BatchEditChecks, Status = ProcessStatus.Paused, UserId = Guid.NewGuid(), DateTime = DateTime.UtcNow } });
+
+                        sub.SubscribeAsync("SignalRCore.Hubs.ProcessingHub:all", (channel, value) =>
+                        {
+                            Console.WriteLine("Received something!");
+                            Console.WriteLine(value);
+                        });
+
+                        sub.Publish("SignalRCore.Hubs.ProcessingHub:all", messageObject);
+                    }
+
+
                 }
             }
         }
