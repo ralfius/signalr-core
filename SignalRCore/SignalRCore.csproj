@@ -27,8 +27,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.2.0-preview1-35029" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="ServiceStack.Redis.Core" Version="5.1.0" />
+    <PackageReference Include="ServiceStack.Interfaces" Version="5.2.0" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
@@ -44,6 +45,7 @@
     <ProjectReference Include="..\aspnet-signalr\src\Microsoft.AspNetCore.SignalR.Protocols.Json\Microsoft.AspNetCore.SignalR.Protocols.Json.csproj" />
     <ProjectReference Include="..\aspnet-signalr\src\Microsoft.AspNetCore.SignalR.Protocols.MessagePack\Microsoft.AspNetCore.SignalR.Protocols.MessagePack.csproj" />
     <ProjectReference Include="..\aspnet-signalr\src\Microsoft.AspNetCore.SignalR\Microsoft.AspNetCore.SignalR.csproj" />
+    <ProjectReference Include="..\ServiceStack.Redis\src\ServiceStack.Redis\ServiceStack.Redis.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="appsettings.json">

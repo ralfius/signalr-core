@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.AspNetCore.Signal
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.AspNetCore.SignalR.Redis", "aspnet-signalr\src\Microsoft.AspNetCore.SignalR.Redis\Microsoft.AspNetCore.SignalR.Redis.csproj", "{761F9C93-E7C8-4549-B9AF-275B01FB193E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceStack.Redis", "ServiceStack.Redis\src\ServiceStack.Redis\ServiceStack.Redis.csproj", "{4E8D449B-8336-4FE0-B5D1-8D2512C3D2FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{761F9C93-E7C8-4549-B9AF-275B01FB193E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{761F9C93-E7C8-4549-B9AF-275B01FB193E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{761F9C93-E7C8-4549-B9AF-275B01FB193E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E8D449B-8336-4FE0-B5D1-8D2512C3D2FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E8D449B-8336-4FE0-B5D1-8D2512C3D2FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E8D449B-8336-4FE0-B5D1-8D2512C3D2FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E8D449B-8336-4FE0-B5D1-8D2512C3D2FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

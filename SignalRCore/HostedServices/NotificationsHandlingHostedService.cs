@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
@@ -14,8 +15,7 @@ namespace SignalRCore.HostedServices
 {
     public class NotificationsHandlingHostedService : IHostedService, IDisposable
     {
-        private RedisClient _client;
-        private IRedisSubscription _subscription;
+        private readonly PooledRedisClientManager _clientManager;
 
         private readonly IHubContext<ChatHub> _hubContext;
         private readonly IConfiguration _configuration;
@@ -24,43 +24,50 @@ namespace SignalRCore.HostedServices
         {
             _configuration = configuration;
             _hubContext = hub;
+
+            var masters = _configuration.GetSection("ConnectionStrings:Redis:Masters").Get<string[]>();
+            var slaves = _configuration.GetSection("ConnectionStrings:Redis:Slaves").Get<string[]>();
+
+            _clientManager = new PooledRedisClientManager(masters, slaves);
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            _client = new RedisClient(_configuration["ConnectionStrings:Redis"]);
-            _subscription = _client.CreateSubscription();
-
-            _subscription.OnSubscribe = channel =>
+            var redisPubSub = new RedisPubSubServer(_clientManager, "SignalRCore.Hubs.ChatHub:all")
             {
-                Trace.WriteLine($"Subscribed to '{channel}'");
-            };
-            _subscription.OnUnSubscribe = channel =>
-            {
-                Trace.WriteLine($"UnSubscribed from '{channel}'");
-            };
-            _subscription.OnMessage = (channel, msg) =>
-            {
-                Trace.WriteLine($"Received '{msg}' from channel '{channel}'");
+                OnStart = () =>
+                {
+                    Trace.WriteLine("Connection started");
+                },
+                OnMessage = (channel, msg) =>
+                {
+                    var message = JsonConvert.DeserializeObject<MessageModel>(msg);
 
-                var message = JsonConvert.DeserializeObject<MessageModel>(msg);
-
-                _hubContext.Clients.All.SendAsync("ReceiveMessage", message);
+                    _hubContext.Clients.All.SendAsync("ReceiveMessage", message);
+                },
+                OnError = (error) =>
+                {
+                    Trace.WriteLine($"ProcessingHub -> OnError throws {error}");
+                },
+                OnFailover = (error) =>
+                {
+                    Trace.WriteLine("Failover initiated");
+                }
             };
 
-            _subscription.SubscribeToChannels("SignalRCore.Hubs.ChatHub:all");
+            redisPubSub.IsSentinelSubscription = true;
+
+            redisPubSub.Start();
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)
         {
-            _subscription?.UnSubscribeFromAllChannels();
             Dispose();
         }
 
         public void Dispose()
         {
-            _client?.Dispose();
-            _subscription?.Dispose();
+            _clientManager?.Dispose();
         }
     }
 }
